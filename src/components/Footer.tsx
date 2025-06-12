@@ -24,7 +24,6 @@ export default function ContactSection() {
   return (
     <footer className="w-full bg-gradient-to-br from-gray-900 to-gray-950 text-gray-100 py-16 px-6 border-t border-gray-800">
       <div className="mx-auto max-w-7xl">
-        {/* Company Info occupies full width on all screens */}
         <div className="mb-10">
           <div className="space-y-6">
             <div className="flex items-center gap-3">
@@ -99,7 +98,6 @@ export default function ContactSection() {
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
             <button
               onClick={() => setShowResources((prev) => !prev)}
