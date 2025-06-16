@@ -118,3 +118,7 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+

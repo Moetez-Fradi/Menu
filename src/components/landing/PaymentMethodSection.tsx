@@ -17,6 +17,7 @@ export default function PaymentMethodsSection() {
   ];
 
   return (
+    <section id="pricing">
     <div className="min-h-screen flex flex-col justify-center">
       <motion.div
          initial={{ opacity: 0, y: 20 }}
@@ -51,5 +52,6 @@ export default function PaymentMethodsSection() {
         </div>
       </motion.div>
     </div>
+    </section>
   );
 }

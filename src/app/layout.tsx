@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Providers from "../components/Providers";
+import KindeProviderWrapper from "@/components/KindeProviderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +32,12 @@ export default function RootLayout({
       <body
         className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, "min-h-screen font-sans antialiased grainy overscroll-y-none")}
       >
+        <KindeProviderWrapper>
         <Navbar />
         <main className="flex-1">
-          {children}
+                  <Providers>{children}</Providers>
         </main>
+        </KindeProviderWrapper>
 
         <ContactSection></ContactSection>
       </body>

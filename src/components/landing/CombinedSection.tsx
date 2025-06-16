@@ -9,6 +9,7 @@ import { FEATURES } from "@/lib/utils";
 
 export default function CombinedSection() {
   return (
+    <section id="features">
     <div className="min-h-[90vh] flex flex-col md:flex-row items-center justify-center px-4 py-8">
       <div className="w-full md:w-1/2 flex justify-center">
         <motion.div
@@ -79,5 +80,6 @@ export default function CombinedSection() {
         ))}
       </div>
     </div>
+    </section>
   );
 }

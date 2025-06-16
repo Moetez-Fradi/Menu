@@ -1,5 +1,6 @@
-"use client";
-import { useState } from "react";
+'use client';
+
+import { useState, useEffect } from 'react';
 import {
   Mail,
   MapPin,
@@ -14,16 +15,29 @@ import {
   Menu,
   Gift,
   Globe,
-} from "lucide-react";
+} from 'lucide-react';
 
 export default function ContactSection() {
   const [showQuickLinks, setShowQuickLinks] = useState(false);
   const [showResources, setShowResources] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [isWideScreen, setIsWideScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 900px)');
+    // Set initial state
+    setIsWideScreen(mediaQuery.matches);
+    // Update on change
+    const handler = (e: MediaQueryListEvent) => setIsWideScreen(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   return (
+    <section id="contact">
     <footer className="w-full bg-gradient-to-br from-gray-900 to-gray-950 text-gray-100 py-16 px-6 border-t border-gray-800">
       <div className="mx-auto max-w-7xl">
+        {/* Brand Section */}
         <div className="mb-10">
           <div className="space-y-6">
             <div className="flex items-center gap-3">
@@ -57,39 +71,34 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Dropdowns container: three side by side on mobile (<900px) */}
-        <div className="grid grid-cols-3 gap-10 mb-16 max-[900px]:grid-cols-3 min-[900px]:grid-cols-3 lg:grid-cols-3">
+        {/* Links & Contact Grid */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 mb-16">
           {/* Quick Links */}
           <div>
             <button
-              onClick={() => setShowQuickLinks((prev) => !prev)}
-              className="w-full flex items-center justify-between gap-2 text-lg font-semibold text-white mb-4"
+              onClick={() => !isWideScreen && setShowQuickLinks(prev => !prev)}
+              className={`w-full flex items-center justify-between gap-2 text-lg font-semibold mb-4 text-white ${
+                isWideScreen ? 'cursor-default' : 'cursor-pointer'
+              }`}
+              disabled={isWideScreen}
+              aria-expanded={isWideScreen || showQuickLinks}
             >
               <Menu className="h-5 w-5 text-purple-400" />
               <span>Quick Links</span>
               <ArrowRight
                 className={`h-4 w-4 text-purple-500 transform transition-transform ${
-                  showQuickLinks ? "rotate-90" : ""
+                  isWideScreen || showQuickLinks ? 'rotate-90' : ''
                 }`}
               />
             </button>
             <ul
               className={`space-y-4 text-gray-300 block transition-all overflow-hidden ${
-                showQuickLinks ? "max-h-screen" : "max-h-0"
+                isWideScreen || showQuickLinks ? 'max-h-screen' : 'max-h-0'
               }`}
             >
-              {[
-                "How It Works",
-                "Our Technology",
-                "Case Studies",
-                "Pricing Plans",
-                "Careers",
-              ].map((item) => (
+              {['How It Works', 'Our Technology', 'Case Studies', 'Pricing Plans', 'Careers'].map(item => (
                 <li key={item}>
-                  <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-purple-300 group"
-                  >
+                  <a href="#" className="flex items-center gap-2 hover:text-purple-300 group">
                     <ArrowRight className="h-4 w-4 text-purple-500 group-hover:translate-x-1 transition-transform" />
                     {item}
                   </a>
@@ -100,34 +109,29 @@ export default function ContactSection() {
 
           <div>
             <button
-              onClick={() => setShowResources((prev) => !prev)}
-              className="w-full flex items-center justify-between gap-2 text-lg font-semibold text-white mb-4"
+              onClick={() => !isWideScreen && setShowResources(prev => !prev)}
+              className={`w-full flex items-center justify-between gap-2 text-lg font-semibold mb-4 text-white ${
+                isWideScreen ? 'cursor-default' : 'cursor-pointer'
+              }`}
+              disabled={isWideScreen}
+              aria-expanded={isWideScreen || showResources}
             >
               <Gift className="h-5 w-5 text-purple-400" />
               <span>Resources</span>
               <ArrowRight
                 className={`h-4 w-4 text-purple-500 transform transition-transform ${
-                  showResources ? "rotate-90" : ""
+                  isWideScreen || showResources ? 'rotate-90' : ''
                 }`}
               />
             </button>
             <ul
               className={`space-y-4 text-gray-300 block transition-all overflow-hidden ${
-                showResources ? "max-h-screen" : "max-h-0"
+                isWideScreen || showResources ? 'max-h-screen' : 'max-h-0'
               }`}
             >
-              {[
-                "Blog & Articles",
-                "Documentation",
-                "API Reference",
-                "Community Forum",
-                "Support Center",
-              ].map((item) => (
+              {['Blog & Articles', 'Documentation', 'API Reference', 'Community Forum', 'Support Center'].map(item => (
                 <li key={item}>
-                  <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-purple-300 group"
-                  >
+                  <a href="#" className="flex items-center gap-2 hover:text-purple-300 group">
                     <ArrowRight className="h-4 w-4 text-purple-500 group-hover:translate-x-1 transition-transform" />
                     {item}
                   </a>
@@ -136,37 +140,37 @@ export default function ContactSection() {
             </ul>
           </div>
 
-          {/* Contact & Newsletter */}
+          {/* Contact */}
           <div>
             <button
-              onClick={() => setShowContact((prev) => !prev)}
-              className="w-full flex items-center justify-between gap-2 text-lg font-semibold text-white mb-4"
+              onClick={() => !isWideScreen && setShowContact(prev => !prev)}
+              className={`w-full flex items-center justify-between gap-2 text-lg font-semibold mb-4 text-white ${
+                isWideScreen ? 'cursor-default' : 'cursor-pointer'
+              }`}
+              disabled={isWideScreen}
+              aria-expanded={isWideScreen || showContact}
             >
               <HelpCircle className="h-5 w-5 text-purple-400" />
               <span>Get in Touch</span>
               <ArrowRight
                 className={`h-4 w-4 text-purple-500 transform transition-transform ${
-                  showContact ? "rotate-90" : ""
+                  isWideScreen || showContact ? 'rotate-90' : ''
                 }`}
               />
             </button>
             <div
               className={`space-y-4 text-gray-300 block transition-all overflow-hidden ${
-                showContact ? "max-h-screen" : "max-h-0"
+                isWideScreen || showContact ? 'max-h-screen' : 'max-h-0'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className="bg-purple-900/50 p-2 rounded-lg">
                   <Mail className="h-5 w-5 text-purple-400" />
                 </div>
-                <a
-                  href="mailto:hello@tastyar.io"
-                  className="text-gray-300 text-lg hover:text-white underline underline-offset-4 decoration-purple-500"
-                >
+                <a href="mailto:hello@tastyar.io" className="text-gray-300 text-lg hover:text-white underline underline-offset-4 decoration-purple-500">
                   hello@tastyar.io
                 </a>
               </div>
-
               <div className="flex items-center gap-3">
                 <div className="bg-purple-900/50 p-2 rounded-lg">
                   <MapPin className="h-5 w-5 text-purple-400" />
@@ -175,15 +179,11 @@ export default function ContactSection() {
                   123 Tech Street, San Francisco, CA 94103
                 </span>
               </div>
-
               <div className="flex items-center gap-3">
                 <div className="bg-purple-900/50 p-2 rounded-lg">
                   <PhoneCall className="h-5 w-5 text-purple-400" />
                 </div>
-                <a
-                  href="tel:+15551234567"
-                  className="text-gray-300 text-lg hover:text-white underline underline-offset-4 decoration-purple-500"
-                >
+                <a href="tel:+15551234567" className="text-gray-300 text-lg hover:text-white underline underline-offset-4 decoration-purple-500">
                   (555) 123-4567
                 </a>
               </div>
@@ -192,14 +192,13 @@ export default function ContactSection() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800 my-8"></div>
+        <div className="border-t border-gray-800 my-8" />
 
-        {/* Bottom section */}
-        <div className="flex flex-col min-[900px]:flex-row justify-between items-center gap-6">
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-500 text-sm">
             &copy; {new Date().getFullYear()} TastyAR Technologies. All rights reserved.
           </p>
-
           <div className="flex gap-6">
             <a href="#" className="text-gray-500 hover:text-gray-300 text-sm">
               Privacy Policy
@@ -214,18 +213,9 @@ export default function ContactSection() {
               Sitemap
             </a>
           </div>
-
-          {/* <div className="flex items-center gap-2">
-            <Globe className="h-4 w-4 text-gray-500" />
-            <select className="bg-gray-900 border border-gray-800 text-gray-300 text-sm rounded-lg px-2 py-1 focus:outline-none">
-              <option>English</option>
-              <option>Español</option>
-              <option>Français</option>
-              <option>Deutsch</option>
-            </select>
-          </div> */}
         </div>
       </div>
     </footer>
+    </section>
   );
 }

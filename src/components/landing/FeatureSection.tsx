@@ -5,6 +5,7 @@ import { Sparkles } from "lucide-react";
 
 export default function FeaturesSection() {
   return (
+    <section id="features">
     <motion.div
      initial={{ opacity: 0, y: 20 }}
      whileInView={{ opacity: 1, y: 0 }}
@@ -29,5 +30,6 @@ export default function FeaturesSection() {
         </motion.div>
       ))}
     </motion.div>
+    </section>
   );
 }

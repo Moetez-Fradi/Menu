@@ -5,6 +5,7 @@ import Button from "@/components/ui/button";
 
 export default function LandingSection() {
   return (
+    <section id="home">
 <div className="flex flex-col justify-start items-center text-center pt-10 pb-39">
           <motion.div
          initial={{ opacity: 0, y: 20 }}
@@ -55,5 +56,6 @@ export default function LandingSection() {
         </Button>
       </motion.div>
     </div>
+    </section>
   );
 }
